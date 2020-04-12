@@ -1,0 +1,173 @@
+<!--pages/myOrder/myOrder.wxml-->
+<view class="back"></view>
+<van-tabs active="{{ tabs_active }}" bindchange="tabs_change" type="card">
+
+  
+  <view style="margin-top:30rpx;"></view>
+  <!--代发货-->
+  <van-tab title="待发货" name="UNSHIPPED">
+
+    <block wx:if="{{order_list.length != 0}}" >
+      <view class="order-list">
+        <view class="center" wx:for="{{order_list}}">
+          <view class="order-item">
+            <view class="order-id">订单号:{{item.ID}}</view>
+            <view class="order-other">下单时间：{{item.CREATE_TIEM}}</view>
+            <view class="order-other">总价: <span style="color:red;">￥{{item.TOTAL}}</span></view>
+            <view class="order-option">
+              <van-button 
+                type="warning" 
+                plain size="mini" 
+                bindtap="show_order_info"
+                data-id="{{item.ID}}"
+                data-index="{{index}}"
+              >查看</van-button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="center empty">
+        无更多内容
+      </view>
+    </block>
+  </van-tab>
+   <!--已完成-->
+  <van-tab title="已完成" name="FINISH">
+    <block wx:if="{{order_list.length != 0}}" >
+      <view class="order-list">
+        <view class="center" wx:for="{{order_list}}">
+          <view class="order-item">
+            <view class="order-id">订单号:{{item.ID}}</view>
+            <view class="order-other">下单时间：{{item.CREATE_TIEM}}</view>
+            <view class="order-other">总价: <span style="color:red;">￥{{item.TOTAL}}</span></view>
+           <view class="order-option">
+              <van-button 
+                type="warning" 
+                plain 
+                size="mini"
+                bindtap="show_order_info"
+                data-id="{{item.ID}}"
+                data-index="{{index}}"
+                style="margin-right:10rpx;"             
+              >查看</van-button> 
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="center empty">
+        无更多内容
+      </view>
+    </block>    
+  </van-tab>
+
+  <!--待支付-->
+  <van-tab title="待支付" name="UNPAID">
+    <block wx:if="{{order_list.length != 0}}" >
+      <view class="order-list">
+        <view class="center" wx:for="{{order_list}}">
+          <view class="order-item">
+            <view class="order-id">订单号:{{item.ID}}</view>
+            <view class="order-other">下单时间：{{item.CREATE_TIME}}</view>
+            <view class="order-other">总价: <span style="color:red;">￥{{item.TOTAL}}</span></view>
+            <view class="order-option">
+              <van-button 
+                type="warning" 
+                plain 
+                size="mini"
+                bindtap="cancel_pay"
+                data-id="{{item.ID}}"
+                data-index="{{index}}"  
+                wx:if="{{show_type=='UNPAID' || show_type=='FINISH'}}"  
+                style="margin-right:20rpx;"          
+              >
+                取消支付
+              </van-button>
+              <van-button 
+                type="warning" 
+                plain 
+                size="mini"
+                bindtap="keep_pay"
+                data-id="{{item.ID}}"
+                data-index="{{index}}" 
+                data-total="{{item.TOTAL}}" 
+                wx:if="{{show_type=='UNPAID' || show_type=='FINISH'}}"  
+                style="margin-right:20rpx;"          
+              >
+                继续支付
+              </van-button>
+              <van-button 
+                type="warning" 
+                plain 
+                size="mini"
+                bindtap="show_order_info"
+                data-id="{{item.ID}}"
+                data-index="{{index}}"
+                style="margin-right:10rpx;"             
+              >查看</van-button> 
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="center empty">
+        无更多内容
+      </view>
+    </block>  
+  </van-tab>
+</van-tabs>
+
+
+<!--轻提示-->
+<van-toast id="van-toast" />
+
+<!--订单详情-->
+<van-popup show="{{ order_info_show }}" bind:close="close_show_info">
+
+  <view class="order_info">
+    <van-cell title="总价" icon="refund-o" value="￥{{order_info.TOTAL}}"/>
+    <van-cell title="订单号" icon="todo-list-o" label="{{order_info.ID}}"/>
+    <van-cell 
+      title="收件地址" 
+      icon="location-o" 
+      label="{{order_info.PROVINCE}}{{order_info.CITY}}{{order_info.COUNTY}}{{order_info.ADDRESS}}"
+    />
+    <van-cell title="收件人姓名" icon="user-o" label="{{order_info.NAME}}"/>
+    <van-cell title="收件人联系方式" icon="phone-o" label="{{order_info.TEL}}"/>
+    <block wx:if="{{order_info.EXPRESS_STATU == 'UNSHIPPED' || order_info.EXPRESS_STATU == 'UNPAID'}}"> 
+      <van-cell title="运单号" icon="logistics" label="待发货"/>
+    </block>
+    <block wx:else>
+      <van-cell title="快递公司" icon="gift-card-o" label="{{order_info.EXPRESS_INFO[0].EXPRESS_COMPANY}}"/>
+      <van-cell title="运单号" icon="logistics" label="{{order_info.EXPRESS_INFO[0].WAYBILL_NO}}"/>
+    </block>
+
+    <van-block title="商品列表">
+      <view class="goods_list" wx:for="{{goods_list}}">
+        <view class="goods_name" >
+          <span 
+            wx:for="{{8}}"
+            wx:for-item= "i"
+            data-id="{{item.GOODS_ID}}"
+            bindtap="to_goods_info"
+          >
+            {{item.GOODS_NAME[i]}}
+          </span>
+
+          <span wx:if="{{item.GOODS_NAME.length>8}}">...</span>          
+        </view>
+        <view class="goods_price">￥{{item.GOODS_PRICE}}</view>
+        <view class="goods_qty">x{{item.GOODS_QTY}}</view>
+      </view>
+
+    </van-block>
+  </view>
+
+</van-popup>

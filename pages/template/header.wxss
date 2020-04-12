@@ -1,0 +1,106 @@
+swiper-item>image{
+  width: 100%;
+  height: 100%;
+}
+
+.btn-primary{
+  width: 120rpx;
+  height: 60rpx;
+  border-radius: 10rpx;
+  background-color: rgba(65,139,202,1);
+  color: white;
+  font-size: 16px;
+  line-height: 60rpx;
+  text-align: center;
+}
+
+.btn-primary-hover{
+  background-color: rgba(65,139,202,.5);
+}
+
+/*通用宣传窗口*/
+.currency-ad{
+  width: 100%;
+  height: 500rpx;
+  background-color: rgba(65,139,202,.5);
+}
+/*底部功能列表*/
+.fun-list{
+  display: flex;
+  height: 110rpx;
+  width: 100%;
+  border-top: 1rpx solid #ccc;
+  position: fixed;
+  bottom: 0;
+}
+
+.fun-item{
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  font-size: 24rpx;
+  color: #888;
+}
+
+.fun-item-item{
+  display: flex;
+  flex-direction: column;
+}
+
+.fun-item-item-ico{
+  max-width: 50rpx;
+  max-height: 50rpx;
+  margin-top: 15rpx;
+}
+
+.fun-item-item-text{
+  height: 40rpx;
+  width: 50rpx;
+  line-height: 40rpx;
+  text-align: center;
+  margin-bottom: 5rpx;
+}
+
+.fun-item-hover{
+  color: rgb(2,158,225);
+}
+
+/*大号通用功能导航栏*/
+.currency-fun{
+  width: 100%;
+  display: flex;
+}
+
+.currency-fun-item{
+  flex: 1;
+  width: 100rpx;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.currency-fun-item-item{
+
+  display: flex;
+  flex-direction: column;
+}
+.currency-fun-image{
+
+  max-width: 100rpx;
+  max-height: 100rpx;
+  margin-top: 40rpx;
+  font-size: 32rpx;
+}
+
+.currency-fun-text{
+  height: 60rpx;
+  width: 100rpx;
+  line-height: 60rpx;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.currency-fun-hover{
+  color: rgb(2,158,225);
+}

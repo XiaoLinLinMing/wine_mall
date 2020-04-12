@@ -1,0 +1,99 @@
+
+<!--
+  轮播图模板
+  linAdClick()：宣传图片点击事件
+  array.url:参数
+-->
+<template name="rotation-chart">
+
+  <swiper 
+    indicator-dots="1"
+    class="currency-ad"
+    indicator-color="rgb(251,74,48)"
+  >
+   <swiper-item wx:for="{{linAd}}">
+      <view class="level-center"> 
+        <image  
+          style="width:100%;max-height:150px;"
+          src="{{item.url}}" 
+          bindtap="linAdClick"
+          data-id="{{item.id}}"
+          data-src="{{item.url}}"
+          mode="aspectFit"
+        ></image>
+      </view>
+    </swiper-item>
+  </swiper>
+
+</template>
+
+<!--
+  按钮模板
+  linBtnClick：按钮点击事件
+-->
+<template name="btn-primary">
+  <view 
+    class="btn-primary" 
+    bindtap="linBtnClick" 
+    data-id="{{linBtnPrimary.id}}"
+    hover-class="btn-primary-hover"
+  >
+    {{linBtnPrimary.values}}
+  </view>
+</template>
+
+<!--
+  底部常规功能列表
+  linFunClick：功能点击事件方法
+  linFunList: 功能对象
+-->
+<template name="lin-fun">
+  <view class="fun-list">
+    <view 
+      class="fun-item" 
+      wx:for="{{linFunList}}"
+    >
+    <view 
+      class="fun-item-item"
+      hover-stay-time:600
+      hover-class="fun-item-hover"
+    >
+      <image 
+        class="fun-item-item-ico" 
+        src="{{item.url}}"
+        bindtap="linFunClick"
+        data-id="{{item.id}}"
+      ></image>
+      <view class="fun-item-item-text">{{item.text}}</view>
+    </view>
+    
+    </view>
+  </view>
+</template>
+
+<!--
+  大号通用功能列表
+  linBgFunClick：功能点击事件方法
+  linBgFunList: 功能对象
+-->
+<template name="linBgfunList">
+  <view 
+    class="currency-fun"
+  >
+    <view class="currency-fun-item" wx:for="{{linBgFunList}}">
+      <view 
+        class="currency-fun-item-item"
+        hover-class="currency-fun-hover"
+      >
+        <image 
+          class="currency-fun-image" 
+          src="{{item.url}}" 
+          data-id="{{item.id}}"
+          bindtap="linBgFunClick"
+          mode="aspectFill"
+        ></image>
+        <text class="currency-fun-text">{{item.text}}</text>
+      </view>
+    </view>
+  </view>
+</template>

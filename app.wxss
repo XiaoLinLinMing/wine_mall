@@ -1,0 +1,125 @@
+@import "dist/common/index.wxss";
+
+/**app.wxss**/
+.main {
+  display: flex;
+  flex-direction: column;
+} 
+
+/*水平居中*/
+.level-center{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/*垂直居中*/
+.vertival-center{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.back{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: -1;
+}
+
+/*需要制定宽度*/
+.search{
+  height: 80rpx;
+  background-color: white;
+  border: 1rpx solid #ccc;
+  display: flex;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+}
+
+.search-ico{
+  width: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+}
+
+.search-input{
+  width: 500rpx;
+  height: 60rpx;
+  margin-top: 10rpx;
+  font-size: 26rpx;
+}
+
+page {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 0 0 100rpx;
+  color: #323233;
+  font-size: 16px;
+  font-family: 'PingFang SC', Helvetica, Arial, sans-serif;
+  /*background: #f7f8fa;*/
+  background: white;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tag,.button {
+  margin-right: 5px;
+}
+
+.van-card__footer {
+  margin-top: 5px;
+}
+
+
+/*客服按钮*/
+.chat-button{
+  position: fixed;
+  bottom: 400rpx;
+  right: 10rpx;
+}
+
+.kefu{
+  width: 100rpx;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 3rpx;
+}
+
+.kefu button{
+  width: 100%;
+  height: 30rpx;
+  background-color: rgba(0,0,0,0);
+  border: 0 solid rgba(0,0,0,0);
+  line-height: 30rpx;
+  font-size: 20rpx;
+  outline: none; 
+  color: rgb(110, 110, 110);
+  margin-top: 3rpx;
+}
+
+/*商品展示图片*/
+.goods-img{
+  width: 100%;
+  height: 100%;
+}
+
+/*商品详情样式*/
+.desc{
+  color: #838282;
+  font-size: 22rpx;
+  line-height: 28rpx;
+  margin-top: 10rpx;
+  margin-bottom: 20rpx;
+}
+
+/*图片放大*/
+.img-scale-panel{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}

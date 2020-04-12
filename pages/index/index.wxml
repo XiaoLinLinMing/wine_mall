@@ -1,0 +1,212 @@
+<!--pages/index/index.wxml-->
+
+
+<view class="center">
+  <view class="top-red">
+    <view class="top-ad">
+      <image src="{{top_ad}}" mode="widthFix"></image>
+    </view>
+  </view>
+</view>
+<view class="top-fun-box">
+    <view class="top-fun-img-box">
+      <image src="{{logo}}"></image>
+    </view>
+    <view class="top-fun-right-panel">
+      <!--消息通知-->
+      <van-notice-bar
+        left-icon="https://www.linhuiqi.top/葡萄酒商城/view/ico/notice.png"
+        text="海南佰年庄与您一起品鉴红酒，希望能给您带来您喜欢的情调和生活态度。"
+      />
+    </view>
+  </view>
+
+<van-search
+  value="{{ value }}"
+  placeholder="请输入搜索关键词"
+  use-action-slot
+  bindchange="on_search_change"
+  bindsearch="start_search"
+  label="商品"
+  shape="round"
+  style="margin-top:500rpx;"
+>
+  <view slot="action" bindtap="start_search">搜索</view>
+</van-search>
+
+<!--宣传图模块
+<view class="top-ad">
+  <image src="{{top_ad}}" mode="widthFix"></image>
+</view>-->
+
+<van-divider content-position="center" custom-style="color: rgb(42,39,35);border-color: rgb(42,39,35,.5);font-size: 14px;">
+  导航
+</van-divider>
+
+<!--功能选择模块-->
+  <van-grid gutter="{{ 10 }}">
+    <van-grid-item icon="shop" text="商城" bindtap="to_store" style="color:rgb(149,90,48);"/>
+    <van-grid-item icon="like" text="我的收藏" style="color:rgb(149,90,48);" bindtap="to_collect" info="{{collect_sum}}"/>
+    <van-grid-item icon="shopping-cart" text="购物车" style="color:rgb(149,90,48);" bindtap="open_shop_car" info="{{shop_car_goods_list.length}}"/>
+  </van-grid>
+<van-divider content-position="center" custom-style="color: rgb(42,39,35);border-color: rgba(42,39,35,.5);font-size: 14px;">
+  店主推荐
+</van-divider>
+<view class="title-img">
+  <image src="https://www.linhuiqi.top/葡萄酒商城/view/img/title.jpg" mode="aspectFill"></image>
+</view>
+
+<view wx:for="{{recommend_goods_list}}" style="margin-bottom:30rpx;">
+  <van-card
+    tag="推荐"
+    price="{{item.RECENT_PRICE}}"
+    origin-price="{{item.ORIGIN_PRICE}}"
+    lazy-load	= "{{true}}"
+    centered = "{{true}}"
+  >
+    <image 
+      slot="thumb" 
+      src="{{item.COVER_URL}}" 
+      class="goods-img"
+      bindtap="to_goods_info"
+      data-id="{{item.ID}}"   
+      mode="aspectFit"
+    ></image>
+    <view slot="tags">
+      <van-tag plain type="danger" custom-class="tag">
+        热销
+      </van-tag>
+        <van-tag 
+          plain 
+          type="danger"
+          bindtap="to_goods_info"
+          data-id="{{item.ID}}"
+        >限时折扣</van-tag>
+    </view>
+    <view slot="footer" class="van-card__footer">
+      <van-stepper 
+        value="{{item.QTY}}" 
+        bindchange="set_car" 
+        min="0" 
+        data-id="{{item.ID}}" 
+        data-index="{{index}}"
+        disable-input = "{{true}}"
+      />
+    </view>
+
+    <view 
+      slot="title"         
+      bindtap="to_goods_info"
+      data-id="{{item.ID}}"
+    >
+      {{item.NAME}}
+    </view>
+
+    <view slot="desc" class="desc">
+      <span 
+        wx:for="{{info_max}}"
+        wx:for-item= "i"
+      >
+        {{item.INFO[i]}}
+      </span>
+
+     <span wx:if="{{item.INFO.length>info_max}}">...</span>
+    </view>
+  </van-card>
+</view>
+
+<van-divider content-position="center" custom-style="color: rgb(42,39,35);border-color: rgba(42,39,35,.5);font-size: 14px;">
+  线下门店
+</van-divider>
+<view class="offline">
+  <text>测试测试测试测试</text>
+  <text>地址：测试测试测试测试</text>
+  <text>品鉴热线：123456789</text>
+</view>
+
+<!--底部导航栏模块-->
+<van-tabbar
+  active="{{ 0 }}"
+  active-color="rgb(45,0,1)"
+  inactive-color="#000"
+  bindchange="on_tab_change"
+>
+  <van-tabbar-item icon="wap-home" bindtap="to_index">主页</van-tabbar-item>
+  <van-tabbar-item icon="balance-list-o" bindtap="to_my_order">我的订单</van-tabbar-item>
+</van-tabbar>
+
+
+<!--购物车显示-->
+<van-popup 
+  show="{{ shop_car }}" 
+  bind:close="close_shop_car"
+  position="bottom"
+  custom-style="height: 70%;"
+> 
+  <van-cell title="购物车" icon="shopping-cart-o">
+    <view style="color:red;" bindtap="empty_shop_car">清空</view>
+  </van-cell>
+
+  <view wx:for="{{shop_car_goods_list}}" wx:if="{{shop_car_goods_list.length != 0}}">
+    <van-card
+        price="{{item.RECENT_PRICE}}"
+        title="{{item.NAME}}"
+    >
+      <image 
+        slot="thumb" 
+        src="{{item.COVER_URL}}" 
+        class="goods-img"
+        bindtap="to_goods_info"
+        data-id="{{item.ID}}"   
+        mode="aspectFit"
+      ></image>
+      <view slot="footer" class="van-card__footer">
+        <van-stepper 
+        value="{{item.QTY}}" 
+        bindchange="set_car_on_shop" 
+        min="0" 
+        data-id="{{item.ID}}" 
+        data-index="{{index}}"
+        disable-input = "{{true}}"
+        />
+      </view>
+
+      <view slot="desc" class="desc">
+        <span 
+          wx:for="{{info_max}}"
+          wx:for-item= "i"
+        >
+          {{item.INFO[i]}}
+        </span>
+
+        <span wx:if="{{item.INFO.length>info_max}}">...</span>
+      </view>
+    </van-card>
+  </view>
+
+  <view style="padding-bottom:100rpx;"></view>
+  
+  <block wx:if="{{shop_car_goods_list.length != 0}}">
+    <van-submit-bar
+      price="{{shop_car_total_tip}}"
+      button-text="提交订单"
+      bind:submit="to_pay"
+    />
+  </block>
+  <block wx:if="{{shop_car_goods_list.length == 0}}">
+    <view class="vertival-center">
+      <view class="level-center">
+        <van-icon name="failure" size="180rpx"/>
+      </view>
+      <view class="level-center">
+        <text>啥也没有，去商城看看吧</text>
+      </view>
+    </view>
+  </block>
+   
+</van-popup>
+
+<!--客服按钮-->
+<van-button round type="info" class="chat-button" icon="chat-o" size="small" open-type="contact" color="rgb(211,154,111)">
+  客服
+</van-button>

@@ -1,0 +1,137 @@
+<van-dropdown-menu active-color="#ee0a24">
+  <van-dropdown-item value="{{ 'ASC' }}" options="{{ sort }}" bindchange="setSort"/>
+  <van-dropdown-item value="{{ '*' }}" options="{{ classify }}" bindchange="setClassify"/>
+</van-dropdown-menu>
+
+<!--商品展示-->
+<view wx:for="{{goods_list}}" style="margin-bottom:30rpx;">
+  <van-card
+    price="{{item.RECENT_PRICE}}"
+    origin-price="{{item.ORIGIN_PRICE}}"
+    lazy-load	= "{{true}}"
+   >
+      <view slot="tags">
+        <van-tag plain type="danger" custom-class="tag">热卖</van-tag>
+        <van-tag plain type="danger">打折</van-tag>
+      </view>
+      <image 
+        slot="thumb" 
+        src="{{item.COVER_URL}}" 
+        class="goods-img"
+        bindtap="to_goods_info"
+        data-id="{{item.ID}}"   
+      ></image>
+      <view slot="footer" class="van-card__footer">
+        <van-stepper 
+          value="{{item.QTY}}" 
+          bindchange="set_car" 
+          min="0" 
+          data-id="{{item.ID}}" 
+          data-index="{{index}}"
+          disable-input = "{{true}}"
+        />
+      </view>
+
+      <view 
+        slot="title"         
+        bindtap="to_goods_info"
+        data-id="{{item.ID}}"
+      >{{item.NAME}}</view>
+
+      
+    <view slot="desc" class="desc">
+      <span 
+        wx:for="{{40}}"
+        wx:for-item= "i"
+      >
+        {{item.INFO[i]}}
+      </span>
+
+     <span wx:if="{{item.INFO.length>40}}">...</span>
+    </view>
+  </van-card>
+</view>
+
+<van-goods-action>
+  <view class="kefu">
+    <van-icon name="chat-o" size="38rpx;"/>
+    <button open-type="contact">客服</button>
+  </view>
+  <van-goods-action-icon
+    icon="cart-o"
+    text="购物车"
+    bind:click="open_shop_car"
+  />
+  <van-goods-action-button
+    text="去结算"
+    bind:click="to_pay"
+    wx:if="{{shop_car_total_tip>0}}"
+  />
+  <van-goods-action-button
+    text="去结算"
+    bind:click="to_pay"
+    disabled
+    wx:else
+  />
+</van-goods-action>
+
+<!--轻提示-->
+<van-toast id="van-toast" />
+
+<!--购物车显示-->
+<van-popup 
+  show="{{ shop_car }}" 
+  bind:close="close_shop_car"
+  position="bottom"
+  custom-style="height: 70%;"
+> 
+  <van-cell title="购物车" icon="shopping-cart-o">
+    <view style="color:red;" bindtap="empty_shop_car">清空</view>
+  </van-cell>
+
+
+  <view wx:for="{{shop_car_goods_list}}" wx:if="{{shop_car_goods_list.length != 0}}">
+    <van-card
+      price="{{item.RECENT_PRICE}}"
+      desc="{{item.INFO}}"
+      title="{{item.NAME}}"
+      thumb="{{ item.COVER_URL }}"
+      centered = "{{true}}"
+    >
+
+
+      <view slot="footer" class="van-card__footer">
+        <van-stepper 
+          value="{{item.QTY}}" 
+          bindchange="set_car_on_shop" 
+          min="0" 
+          data-id="{{item.ID}}" 
+          data-index="{{index}}"
+          disable-input = "{{true}}"
+        />
+      </view>
+    </van-card>
+  </view>
+  <view style="padding-bottom:100rpx;"></view>
+
+
+  <view wx:if="{{shop_car_goods_list.length != 0}}">
+    <van-submit-bar
+      price="{{shop_car_total_tip}}"
+      button-text="提交订单"
+      bind:submit="to_pay"
+    />
+  </view>
+  <block wx:if="{{shop_car_goods_list.length == 0}}">
+  
+    <view class="vertival-center">
+      <view class="level-center">
+        <van-icon name="failure" size="220rpx"/>
+      </view>
+      <view class="level-center">
+        <text>购物车空空如也~</text>
+      </view>
+    </view>
+  </block>
+   
+</van-popup>

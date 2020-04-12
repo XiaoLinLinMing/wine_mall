@@ -1,0 +1,77 @@
+<!--pages/pay/pay.wxml-->
+<van-cell-group>
+  <van-cell title="收货地址" border="{{ true }}" use-label-slot>
+    <van-icon 
+      slot="right-icon"
+      name="edit" 
+      class="custom-icon" 
+      size="40rpx;" 
+      color="#888"
+      bindtap="choose_addr"
+    />
+
+    <van-icon 
+      slot="icon"
+      name="location-o" 
+      class="custom-icon" 
+      color="rgb(252,81,49)"
+      size="30rpx"
+    />
+
+    <view slot="label" class="edit-addr">
+      <text>{{provinceName}}{{cityName}}{{countyName}}{{detailInfo}}</text>
+      <text>{{userName}}<text wx:if="{{userName!=''}}">收（电话：{{telNumber}}）</text></text>
+    </view>
+  </van-cell>
+
+  <van-cell icon="logistics" title="顺丰到付运费预估" value="￥{{postage}}" wx:if="{{postage!=0}}">
+  </van-cell>
+
+</van-cell-group>
+<van-divider 
+  dashed 
+  contentPosition="center" 
+  customStyle="color: rgb(252,81,49);border-color: rgb(252,81,49);font-size: 14px;"
+>
+  商品列表
+</van-divider>
+
+<block wx:for="{{shop_car.goods_list}}">
+  <van-card
+    num="{{item.QTY}}"
+    price="{{item.RECENT_PRICE}}"
+    title="{{item.NAME}}"
+  >
+    <image 
+      slot="thumb" 
+      src="{{item.COVER_URL}}" 
+      class="goods-img"
+      bindtap="to_goods_info"
+      data-id="{{item.ID}}"   
+      mode="aspectFit"
+    ></image>
+
+    <view slot="desc" class="desc">
+      <span 
+        wx:for="{{40}}"
+        wx:for-item= "i"
+      >
+        {{item.INFO[i]}}
+      </span>
+
+     <span wx:if="{{item.INFO.length>40}}">...</span>
+    </view>
+  </van-card>
+</block>
+
+<view style="margin-top:100rpx;"></view>
+<!--提交订单-->
+<van-submit-bar
+  price="{{ shop_car.total * 100 }}"
+  button-text="提交订单"
+  tip="{{sf_tips}}"
+  tip-icon="https://img.yzcdn.cn/1.png"
+  bind:submit="onSubmit"
+/>
+
+<van-notify id="van-notify" />

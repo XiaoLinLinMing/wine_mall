@@ -1,0 +1,24 @@
+/* pages/store/store.wxss */
+.goods-footer{
+  height: 100rpx;
+  width: 100%;
+}
+
+.goods-button{
+  width: 80rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  background-color: red;
+}
+
+.tag,
+.button {
+  margin-right: 5px;
+}
+
+.van-card__footer {
+  margin-top: 5px;
+}
+
+button::after { border: none; }

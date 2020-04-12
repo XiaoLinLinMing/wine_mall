@@ -1,0 +1,31 @@
+<!--pages/collect/collect.wxml-->
+
+<view class="collect-list" wx:if="{{goods_list.length!=0}}">
+    <view wx:for="{{goods_list}}" class="collect-item">
+      <van-card
+        price="{{item.GOODS[0].RECENT_PRICE}}"
+        origin-price="{{item.GOODS[0].ORIGIN_PRICE}}"
+        title="{{item.GOODS[0].NAME}}"
+        thumb=" {{item.COVER_URL}}"
+        data-id="{{item.PRODUCT_ID}}"
+
+        bindtap="to_info"
+        centered="{{true}}"
+      >
+        <view slot="desc" class="desc">
+          <span 
+            wx:for="{{40}}"
+            wx:for-item= "i"
+          >
+            {{item.GOODS[0].INFO[i]}}
+          </span>
+
+          <span wx:if="{{item.GOODS[0].INFO.length>40}}">...</span>
+        </view>
+      </van-card>
+    </view>
+</view>
+
+<view class="level-center empty" wx:else>
+  无更多信息~
+</view>

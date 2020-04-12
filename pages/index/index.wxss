@@ -1,0 +1,104 @@
+/* pages/index/index.wxss */
+@import "../template/header.wxss";
+@import "../font/iconfont.wxss";
+.top-ad{
+  width: 100%;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-ad>image{
+  width: 100%;
+}
+
+.top-fun-box{
+  width: 100%;
+  height: 90rpx;
+  display: flex;
+  margin-top: 5rpx;
+}
+
+.top-fun-img-box{
+  width: 240rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  margin-top: -80rpx;
+}
+
+.top-fun-img-box>image{
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 5rpx;
+  box-shadow: 1px 1px 5px #888;
+}
+
+.top-fun-right-panel{
+  height: 80rpx;
+  width: 500rpx;
+}
+
+.top-fun-item{
+  width: 150rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 40rpx;
+  font-size: 32rpx;
+  color: #888;
+  border-right: 1rpx solid #ccc;
+  margin-left: 10rpx;
+}
+
+.top-fun-item>view{
+  text-align: center;
+}
+
+.top-red{
+  height: 250rpx;
+  width: 1000rpx;
+  background-color: rgb(45,0,1);
+  z-index: -1;
+  overflow: hidden;
+}
+
+.center{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.logo{
+  width: 200rpx;
+  height: 200rpx;
+  margin-top: -100rpx;
+  border-radius: 50%;
+}
+
+.logo image{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.title-img{
+  width: 100%;
+  margin-bottom: 30rpx;
+}
+
+.title-img>image{
+  width: 100%;
+  max-height: 200rpx;
+}
+
+.offline{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: #888;
+  line-height: 50rpx;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}

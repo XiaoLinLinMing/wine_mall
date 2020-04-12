@@ -1,0 +1,29 @@
+/* pages/goods_info/goods_info.wxss */
+.express_stock{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap:wrap;
+}
+
+.kefu{
+  width: 100rpx;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 3rpx;
+}
+
+.kefu button{
+  width: 100%;
+  height: 30rpx;
+  background-color: rgba(0,0,0,0);
+  border: 0 solid rgba(0,0,0,0);
+  line-height: 30rpx;
+  font-size: 20rpx;
+  outline: none; 
+  color: rgb(110, 110, 110);
+  margin-top: 3rpx;
+}
+
+button::after { border: none; }

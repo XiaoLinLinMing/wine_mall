@@ -1,0 +1,21 @@
+/* pages/collect/collect.wxss */
+
+.collect-list{
+  width: 100%;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.collect-item{
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 30rpx;
+}
+
+.empty{
+
+  color: #888;
+  font-size: 28rpx;
+  margin-top: 30rpx;
+}

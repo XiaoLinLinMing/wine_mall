@@ -1,0 +1,5 @@
+/* pages/pay/pay.wxss */
+.edit-addr{
+  display: flex;
+  flex-direction: column;
+}
